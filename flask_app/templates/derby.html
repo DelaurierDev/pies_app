@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>PyPie Derby</title>
+</head>
+<body>
+    <div class="nav">
+        <h1>PyPie Derby</h1>
+        <div class="nav_right">
+            <form action="/dashboard">
+                <button>Dashboard</button>
+            </form>
+            <form action="/logout">
+                <button>Logout</button>
+            </form>
+        </div>
+    </div>
+    <div class="main">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>PyPie By</th>
+                    <th>Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pie in pies%}
+                <tr>
+                    <td><a href="/pies/{{pie.id}}/view">{{pie.pie_name}}</a></td>
+                    <td>{{pie.first_name}}</td>
+                    <td>{{pie.votes}}</td>
+                </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="nav">
+        <h1>Welcome {{user_name}}</h1>
+        <div class="nav_right">
+            <form action="/pies">
+                <button>Pie Derby</button>
+            </form>
+            <form action="/logout">
+                <button>Logout</button>
+            </form>
+        </div>
+    </div>
+    <div class="main">
+        <div class="mainleft">
+        <h2>PyPies by {{user_name}}:</h2>
+        <table>
+            <thead>
+                    <tr>
+                    <th>Name</th>
+                    <th>Actions</th>                        
+                    </tr>
+            </thead>
+            <tbody>
+                {% for pie in pies %}
+                <tr>
+                    <td>{{pie.pie_name}}</td>
+                    <td>
+                        <a href="/pies/{{pie.id}}/edit">Edit</a>
+                        <a href="/pies/{{pie.id}}/delete">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>    
+        </div>
+        <div class="mainright">
+            <h2>Add New PyPie</h2>
+            {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+            <form action="/pies/save" method="POST">
+                <p>Name:</p>
+                <input type="text" name="pie_name">
+                <p>Filling:</p>
+                <input type="text" name="filling">
+                <p>Crust:</p>
+                <input type="text" name="crust">
+                <button>Add Pie</button>
+            </form>
+        </div>
+        
+    </div>
+    
+    
+</body>
+</html>

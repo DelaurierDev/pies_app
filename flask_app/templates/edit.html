@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>PyPie Derby</title>
+</head>
+<body>
+    <div class="nav">
+        <h1>Edit Pie!</h1>
+        <div class="nav_right">
+            <form action="/dashboard">
+                <button>Dashboard</button>
+            </form>
+            <form action="/logout">
+                <button>Logout</button>
+            </form>
+        </div>
+    </div>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error" id="newrecerror">{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <form action="/pies/update" method="POST" class="createform">
+        <div class="formleft">
+            <input type="hidden" name="id" value="{{pie['id']}}">
+            <label for="pie_name">Name:</label>
+            <input type="text" name="pie_name" value="{{pie['pie_name']}}">
+            <label for="filling">Filling: </label>
+            <input type="text" name="filling" value="{{pie.filling}}">
+            <label for="crust">Crust: </label>
+            <input type="text" name="crust" value="{{pie.crust}}">
+            <button>Edit Pie</button>
+        </div>
+
+    </form>
+    
+</body>
+</html>
